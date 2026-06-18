@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BID for the Americas — Roadshow Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --teal:     #00A9B5;
+  --teal-dk:  #007F8A;
+  --teal-lt:  #C8EEF0;
+  --cobalt:   #0057A8;
+  --cobalt-lt:#E0EDF8;
+  --navy:     #003A6E;
+  --ink:      #1A1A1A;
+  --ink-2:    #3D3D3D;
+  --ink-3:    #6B6B6B;
+  --rule:     #DEDEDE;
+  --rule-lt:  #F0F0F0;
+  --bg:       #F2F2F2;
+  --white:    #FFFFFF;
+  --sans:     'Source Sans 3', system-ui, sans-serif;
+  --r:        4px;
+}
+body { font-family: var(--sans); background: var(--bg); color: var(--ink); font-size: 14px; line-height: 1.6; }
+#app { display: flex; min-height: 100vh; }
+
+/* ══ SIDEBAR ══ */
+#sidebar {
+  width: 272px; min-width: 272px; background: var(--white);
+  border-right: 1px solid var(--rule);
+  display: flex; flex-direction: column;
+  position: sticky; top: 0; height: 100vh; overflow-y: auto;
+}
+.sb-head { background: var(--teal); padding: 14px 16px; }
+.sb-logo { font-weight: 700; font-size: 15px; color: #fff; }
+.sb-logo span { font-weight: 400; opacity: .8; }
+.sb-sub { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: rgba(255,255,255,.65); margin-top: 2px; }
+.sb-cbar { height: 3px; background: var(--cobalt); }
+
+/* mode switcher */
+.mode-switch { display: flex; gap: 0; padding: 10px 10px 0; }
+.mode-switch button {
+  flex: 1; padding: 7px 6px; border: 1px solid var(--rule); background: var(--rule-lt);
+  font-family: var(--sans); font-size: 11px; font-weight: 600; color: var(--ink-3);
+  cursor: pointer; transition: all .12s;
+}
+.mode-switch button:first-child { border-radius: var(--r) 0 0 var(--r); border-right: none; }
+.mode-switch button:last-child  { border-radius: 0 var(--r) var(--r) 0; }
+.mode-switch button.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+
+.sb-nav { padding: 8px 10px 0; }
+.sb-nav button {
+  display: block; width: 100%; text-align: left; background: transparent; border: none;
+  font-family: var(--sans); font-size: 11px; color: var(--ink-3);
+  padding: 5px 8px; border-radius: var(--r); cursor: pointer; transition: all .12s;
+}
+.sb-nav button:hover { background: var(--rule-lt); color: var(--ink); }
+.sb-nav button.active { background: var(--teal-lt); color: var(--teal-dk); font-weight: 700; }
+
+.sb-fields { padding: 0 14px 14px; flex: 1; }
+.sb-sec { font-size: 10px; text-transform: uppercase; letter-spacing: .09em; color: var(--ink-3); margin: 16px 0 7px; padding-bottom: 4px; border-bottom: 2px solid var(--teal-lt); }
+.fg { margin-bottom: 9px; }
+.fg label { display: block; font-size: 10px; color: var(--ink-3); margin-bottom: 2px; text-transform: uppercase; letter-spacing: .07em; }
+.fg input, .fg textarea { width: 100%; border: 1px solid var(--rule); border-radius: var(--r); background: var(--bg); font-family: var(--sans); font-size: 12px; color: var(--ink); padding: 5px 8px; outline: none; transition: border .12s; resize: vertical; }
+.fg input:focus, .fg textarea:focus { border-color: var(--teal); background: var(--white); }
+.fg textarea { min-height: 48px; }
+.pblock { border-left: 3px solid var(--teal-lt); padding-left: 9px; margin-bottom: 11px; }
+.pblock .pl { display: flex; justify-content: space-between; font-size: 10px; text-transform: uppercase; letter-spacing: .07em; color: var(--ink-3); margin-bottom: 4px; }
+.pblock .pl span { cursor: pointer; } .pblock .pl span:hover { color: #c00; }
+.pblock input { width: 100%; border: 1px solid var(--rule); border-radius: var(--r); background: var(--bg); font-family: var(--sans); font-size: 11px; color: var(--ink); padding: 4px 7px; margin-bottom: 3px; outline: none; }
+.pblock input:focus { border-color: var(--teal); background: var(--white); }
+.add-btn { width: 100%; padding: 6px; background: transparent; border: 1px dashed var(--rule); border-radius: var(--r); font-family: var(--sans); font-size: 11px; color: var(--ink-3); cursor: pointer; transition: all .12s; }
+.add-btn:hover { border-color: var(--teal); color: var(--teal); background: var(--teal-lt); }
+.sb-foot { padding: 12px 14px; border-top: 1px solid var(--rule-lt); background: var(--rule-lt); }
+.sb-foot button { width: 100%; padding: 9px; background: var(--cobalt); color: #fff; border: none; border-radius: var(--r); font-family: var(--sans); font-size: 12px; font-weight: 700; cursor: pointer; transition: background .12s; }
+.sb-foot button:hover { background: var(--navy); }
+.sb-foot .note { font-size: 10px; color: var(--ink-3); margin-top: 5px; text-align: center; line-height: 1.4; }
+
+/* ══ MAIN CONTENT ══ */
+#preview { flex: 1; padding: 28px 32px; overflow-y: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+#checklist-page { flex: 1; padding: 28px 32px; overflow-y: auto; display: none; }
+
+/* ══ SLIDE COMPONENTS ══ */
+.slide { width: 100%; max-width: 740px; background: var(--white); border-radius: 2px; overflow: hidden; box-shadow: 0 1px 6px rgba(0,0,0,.07); }
+.sl-topbar { background: var(--teal); padding: 0 22px; height: 42px; display: flex; align-items: center; justify-content: space-between; }
+.sl-topbar .tl { font-weight: 700; font-size: 14px; color: #fff; }
+.sl-topbar .tr { font-size: 11px; color: rgba(255,255,255,.7); display: flex; gap: 16px; }
+.sl-cbar { height: 3px; background: var(--cobalt); }
+.sl-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 148px; }
+.sl-hero-text { background: var(--teal-lt); padding: 22px 22px 18px; display: flex; flex-direction: column; justify-content: center; }
+.sl-eyebrow { font-size: 10px; text-transform: uppercase; letter-spacing: .13em; font-weight: 700; color: var(--teal-dk); margin-bottom: 6px; }
+.sl-title { font-weight: 700; font-size: 20px; color: var(--navy); line-height: 1.2; }
+.sl-sub { font-size: 12px; color: var(--ink-2); margin-top: 5px; line-height: 1.5; }
+.sl-hero-r { background: linear-gradient(135deg, var(--navy) 0%, var(--teal-dk) 70%, var(--teal) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 18px; gap: 10px; }
+.sl-body { padding: 18px 22px 22px; }
+.sl-foot { display: flex; justify-content: space-between; align-items: center; padding: 8px 22px; border-top: 1px solid var(--rule-lt); background: var(--rule-lt); }
+.sl-foot .fb { font-weight: 700; font-size: 11px; color: var(--teal-dk); }
+.sl-foot .fp { font-size: 11px; color: var(--ink-3); }
+.navb { display: flex; gap: 5px; }
+.navb button { padding: 3px 10px; border: 1px solid var(--rule); background: var(--white); border-radius: var(--r); font-size: 11px; color: var(--ink-3); cursor: pointer; font-family: var(--sans); transition: all .12s; }
+.navb button:hover { border-color: var(--teal); color: var(--teal); }
+.navb button:disabled { opacity: .3; cursor: default; }
+.hr-stat { text-align: center; }
+.hr-stat .s-val { font-weight: 700; font-size: 24px; color: #fff; line-height: 1; }
+.hr-stat .s-lbl { font-size: 10px; color: rgba(255,255,255,.65); text-transform: uppercase; letter-spacing: .08em; margin-top: 3px; }
+.hr-div { width: 1px; height: 36px; background: rgba(255,255,255,.2); }
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.g3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 14px; }
+.ic { border: 1px solid var(--rule); border-radius: var(--r); padding: 11px 13px; }
+.ic-l { font-size: 10px; text-transform: uppercase; letter-spacing: .09em; color: var(--ink-3); margin-bottom: 3px; font-weight: 600; }
+.ic-v { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.25; }
+.ic-n { font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+.mc { background: var(--teal); border-radius: var(--r); padding: 12px 10px; text-align: center; }
+.mc-l { font-size: 10px; text-transform: uppercase; letter-spacing: .07em; color: rgba(255,255,255,.75); margin-bottom: 3px; font-weight: 600; }
+.mc-v { font-weight: 700; font-size: 22px; color: #fff; line-height: 1; }
+.mc-n { font-size: 10px; color: rgba(255,255,255,.65); margin-top: 3px; }
+.mc-c { background: var(--cobalt); }
+.mc-nv { background: var(--navy); }
+.pr { display: flex; justify-content: space-between; align-items: flex-start; border: 1px solid var(--rule); border-left: 4px solid var(--teal); border-radius: 0 var(--r) var(--r) 0; padding: 10px 13px; margin-bottom: 8px; }
+.pr-country { font-size: 10px; color: var(--teal-dk); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 2px; font-weight: 700; }
+.pr-title { font-size: 13px; font-weight: 700; color: var(--ink); }
+.pr-meta { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+.pr-amt { font-size: 11px; font-weight: 700; background: var(--cobalt); color: #fff; border-radius: 20px; padding: 3px 10px; white-space: nowrap; flex-shrink: 0; margin-left: 10px; }
+.ps { display: flex; gap: 11px; margin-bottom: 13px; align-items: flex-start; }
+.ps-n { width: 26px; min-width: 26px; height: 26px; background: var(--teal); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #fff; }
+.ps-t { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 1px; }
+.ps-d { font-size: 12px; color: var(--ink-3); line-height: 1.5; }
+.hr { border: none; border-top: 1px solid var(--rule-lt); margin: 11px 0; }
+.tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px; margin: 2px 3px 2px 0; }
+.tt { background: var(--teal-lt); color: var(--teal-dk); }
+.tc { background: var(--cobalt-lt); color: var(--cobalt); }
+.tg { background: var(--rule-lt); color: var(--ink-3); border: 1px solid var(--rule); }
+.cl { font-size: 13px; color: var(--cobalt); text-decoration: none; display: block; margin-bottom: 6px; font-weight: 600; }
+.cl:hover { text-decoration: underline; }
+.fact-strip { display: flex; gap: 12px; margin-bottom: 14px; }
+.fact-card { flex: 1; background: var(--teal-lt); border-radius: var(--r); padding: 10px 12px; border-left: 3px solid var(--teal); }
+.fact-card .f-val { font-size: 18px; font-weight: 700; color: var(--navy); line-height: 1; margin-bottom: 3px; }
+.fact-card .f-lbl { font-size: 11px; color: var(--ink-3); line-height: 1.3; }
+
+/* ══ CHECKLIST PAGE ══ */
+.cl-page { max-width: 860px; margin: 0 auto; }
+.cl-page-head { background: var(--white); border-radius: 2px; box-shadow: 0 1px 6px rgba(0,0,0,.07); overflow: hidden; margin-bottom: 20px; }
+.cl-page-head .cph-bar { background: var(--teal); height: 6px; }
+.cl-page-head .cph-inner { padding: 24px 28px; }
+.cl-page-head h1 { font-weight: 700; font-size: 22px; color: var(--navy); margin-bottom: 6px; }
+.cl-page-head p { font-size: 13px; color: var(--ink-3); line-height: 1.6; max-width: 600px; }
+
+.cl-meta { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 20px; }
+.cl-meta .cm-card { background: var(--white); border-radius: 2px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+.cl-meta .cm-label { font-size: 10px; text-transform: uppercase; letter-spacing: .09em; color: var(--ink-3); margin-bottom: 5px; font-weight: 600; }
+.cl-meta input, .cl-meta select {
+  width: 100%; border: 1px solid var(--rule); border-radius: var(--r);
+  background: var(--bg); font-family: var(--sans); font-size: 13px; color: var(--ink);
+  padding: 7px 9px; outline: none; transition: border .12s;
+}
+.cl-meta input:focus, .cl-meta select:focus { border-color: var(--teal); background: var(--white); }
+
+/* type selector */
+.type-selector { display: flex; gap: 10px; margin-bottom: 20px; }
+.type-btn {
+  flex: 1; padding: 16px 12px; background: var(--white); border: 2px solid var(--rule);
+  border-radius: var(--r); cursor: pointer; transition: all .15s; text-align: center;
+  font-family: var(--sans);
+}
+.type-btn:hover { border-color: var(--teal-lt); }
+.type-btn.selected { border-color: var(--teal); background: var(--teal-lt); }
+.type-btn .tb-icon { font-size: 24px; margin-bottom: 6px; }
+.type-btn .tb-title { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+.type-btn .tb-sub { font-size: 11px; color: var(--ink-3); }
+.type-btn.selected .tb-title { color: var(--teal-dk); }
+
+/* portal links */
+.portal-links { display: flex; gap: 10px; margin-bottom: 20px; }
+.portal-link {
+  flex: 1; background: var(--white); border: 1px solid var(--rule); border-radius: var(--r);
+  padding: 14px 16px; display: flex; align-items: center; gap: 12px;
+  text-decoration: none; transition: border-color .12s; box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+.portal-link:hover { border-color: var(--cobalt); }
+.portal-link .pl-icon { font-size: 22px; flex-shrink: 0; }
+.portal-link .pl-name { font-size: 13px; font-weight: 700; color: var(--cobalt); }
+.portal-link .pl-sub { font-size: 11px; color: var(--ink-3); margin-top: 2px; }
+
+/* checklist panel */
+.checklist-panel { background: var(--white); border-radius: 2px; box-shadow: 0 1px 6px rgba(0,0,0,.07); overflow: hidden; }
+.checklist-panel .cp-head { background: var(--navy); padding: 16px 22px; display: flex; align-items: center; justify-content: space-between; }
+.checklist-panel .cp-head h2 { font-size: 16px; font-weight: 700; color: #fff; }
+.checklist-panel .cp-head .cp-method { font-size: 11px; color: rgba(255,255,255,.6); margin-top: 2px; }
+.checklist-panel .cp-actions { display: flex; gap: 8px; }
+.checklist-panel .cp-actions button {
+  padding: 5px 12px; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.2);
+  border-radius: var(--r); color: #fff; font-size: 11px; cursor: pointer; font-family: var(--sans);
+  transition: all .12s;
+}
+.checklist-panel .cp-actions button:hover { background: rgba(255,255,255,.25); }
+.cp-body { padding: 0; }
+
+/* section within checklist */
+.cl-section { border-bottom: 1px solid var(--rule-lt); }
+.cl-section:last-child { border-bottom: none; }
+.cl-section-head {
+  padding: 12px 22px; background: var(--rule-lt);
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer; user-select: none;
+}
+.cl-section-head .csh-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); flex-shrink: 0; }
+.cl-section-head .csh-title { font-size: 13px; font-weight: 700; color: var(--ink); flex: 1; }
+.cl-section-head .csh-count { font-size: 11px; color: var(--ink-3); }
+.cl-section-head .csh-toggle { font-size: 11px; color: var(--ink-3); }
+.cl-items { padding: 8px 22px 12px; display: block; }
+.cl-items.collapsed { display: none; }
+
+/* checklist item */
+.cl-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 9px 0; border-bottom: 1px solid var(--rule-lt);
+}
+.cl-item:last-child { border-bottom: none; }
+.cl-item input[type="checkbox"] { margin-top: 3px; width: 16px; min-width: 16px; height: 16px; accent-color: var(--teal); cursor: pointer; }
+.cl-item-body { flex: 1; }
+.cl-item-body .ci-name { font-size: 13px; font-weight: 600; color: var(--ink); }
+.cl-item-body .ci-desc { font-size: 12px; color: var(--ink-3); margin-top: 2px; line-height: 1.4; }
+.cl-item-body .ci-note { font-size: 11px; color: var(--cobalt); margin-top: 3px; font-style: italic; }
+.cl-item .ci-required { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; flex-shrink: 0; margin-top: 2px; }
+.ci-req  { background: #FCECEA; color: #B91C1C; }
+.ci-cond { background: #FEF3E6; color: #92400E; }
+.ci-opt  { background: var(--rule-lt); color: var(--ink-3); }
+
+/* progress bar */
+.progress-wrap { padding: 14px 22px; background: var(--bg); border-top: 1px solid var(--rule-lt); display: flex; align-items: center; gap: 12px; }
+.prog-bar-bg { flex: 1; height: 6px; background: var(--rule); border-radius: 3px; }
+.prog-bar-fill { height: 100%; border-radius: 3px; background: var(--teal); transition: width .2s; }
+.prog-label { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
+
+/* empty state */
+.empty-state { padding: 48px; text-align: center; color: var(--ink-3); }
+.empty-state .es-icon { font-size: 36px; margin-bottom: 12px; }
+.empty-state p { font-size: 13px; }
+
+/* ══ PRINT ══ */
+@media print {
+  body { background: white; }
+  #sidebar, .navb, .mode-switch, .cp-actions, .type-selector, .portal-links .portal-link, .progress-wrap { display: none !important; }
+  #app { display: block; }
+  #preview { padding: 0; gap: 0; }
+  #checklist-page { padding: 20px; display: block !important; }
+  .slide { box-shadow: none; border-radius: 0; page-break-after: always; break-after: page; max-width: 100%; }
+  .slide:last-child { page-break-after: avoid; break-after: avoid; }
+  .sl-topbar, .sl-cbar, .mc, .mc-c, .mc-nv, .pr-amt, .sl-hero-r, .sl-hero-text, .ps-n, .tt, .tc, .checklist-panel .cp-head, .cl-section-head { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .cl-items.collapsed { display: block !important; }
+  .cl-page { max-width: 100%; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ══ SIDEBAR ══ -->
+<aside id="sidebar">
+  <div class="sb-head">
+    <div class="sb-logo">🌐 IDB <span>/ Editor</span></div>
+    <div class="sb-sub">BID for the Americas · Roadshow template</div>
+  </div>
+  <div class="sb-cbar"></div>
+
+  <div class="mode-switch">
+    <button id="btn-deck" class="active" onclick="setMode('deck')">📊 Deck</button>
+    <button id="btn-checklist" onclick="setMode('checklist')">☑ Checklist</button>
+  </div>
+
+  <!-- DECK NAV -->
+  <nav class="sb-nav" id="sb-nav"></nav>
+
+  <div class="sb-fields" id="sb-deck-fields">
+
+    <div class="sb-sec">Cover</div>
+    <div class="fg"><label>Initiative name</label><input id="f-title" value="BID for the Americas" oninput="sync()"></div>
+    <div class="fg"><label>Tagline</label><input id="f-tagline" value="Unlock business opportunities in Latin America and the Caribbean" oninput="sync()"></div>
+    <div class="fg"><label>Presenting entity</label><input id="f-entity" value="Inter-American Development Bank" oninput="sync()"></div>
+    <div class="fg"><label>Date</label><input id="f-date" value="June 2026" oninput="sync()"></div>
+    <div class="fg"><label>Venue / city</label><input id="f-venue" value="Washington, DC" oninput="sync()"></div>
+    <div class="fg"><label>Audience</label><input id="f-audience" value="Non-borrowing member country representatives" oninput="sync()"></div>
+
+    <div class="sb-sec">LAC Region</div>
+    <div class="fg"><label>LAC GDP</label><input id="f-lac-gdp" value="~$6.5T" oninput="sync()"></div>
+    <div class="fg"><label>Population</label><input id="f-lac-pop" value="660M+" oninput="sync()"></div>
+    <div class="fg"><label>GDP growth 2025</label><input id="f-lac-growth" value="2.4%" oninput="sync()"></div>
+    <div class="fg"><label>Infrastructure gap (annual)</label><input id="f-infra-gap" value="$150B/yr" oninput="sync()"></div>
+    <div class="fg"><label>Investment needed to 2030</label><input id="f-infra-need" value="$2.2T" oninput="sync()"></div>
+
+    <div class="sb-sec">IDB Profile</div>
+    <div class="fg"><label>Annual financing</label><input id="f-idb-fin" value="$24B+" oninput="sync()"></div>
+    <div class="fg"><label>Member countries</label><input id="f-idb-members" value="48" oninput="sync()"></div>
+    <div class="fg"><label>Credit rating</label><input id="f-idb-rating" value="AAA" oninput="sync()"></div>
+    <div class="fg"><label>Sectors (comma-sep)</label><input id="f-sectors" value="Infrastructure, Health, Energy, Digital, Agriculture, Water" oninput="sync()"></div>
+
+    <div class="sb-sec">Portfolio metrics</div>
+    <div class="fg"><label>Annual procurement</label><input id="f-pipeline" value="~$4.5B" oninput="sync()"></div>
+    <div class="fg"><label>Contracts / year</label><input id="f-contracts" value="12,000+" oninput="sync()"></div>
+    <div class="fg"><label>Borrowing countries</label><input id="f-countries" value="26" oninput="sync()"></div>
+
+    <div class="sb-sec">Featured projects</div>
+    <div id="proj-fields"></div>
+    <button class="add-btn" onclick="addP()">+ Add project</button>
+
+    <div class="sb-sec">Contact</div>
+    <div class="fg"><label>Focal point name</label><input id="f-cn" value="[Name]" oninput="sync()"></div>
+    <div class="fg"><label>Title & division</label><input id="f-ct" value="[Title · Division]" oninput="sync()"></div>
+    <div class="fg"><label>Email</label><input id="f-ce" value="bidfortheamericas@iadb.org" oninput="sync()"></div>
+    <div class="fg"><label>Country office</label><textarea id="f-co" oninput="sync()">[Name · Title · email · City]</textarea></div>
+
+  </div>
+
+  <div class="sb-foot">
+    <button onclick="exportCurrent()">Export to PDF</button>
+    <p class="note">Print → Save as PDF · Margins: None</p>
+  </div>
+</aside>
+
+<!-- ══ DECK ══ -->
+<main id="preview"></main>
+
+<!-- ══ CHECKLIST PAGE ══ -->
+<section id="checklist-page">
+  <div class="cl-page">
+
+    <div class="cl-page-head">
+      <div class="cph-bar"></div>
+      <div class="cph-inner">
+        <h1>Procurement Onboarding Checklist</h1>
+        <p>Select the tender type and fill in the tender details below. The checklist will show the documents required for that procurement method. Use the portals to find the specific tender and its bidding documents.</p>
+      </div>
+    </div>
+
+    <!-- Portals -->
+    <div class="portal-links">
+      <a class="portal-link" href="https://bidfortheamericas.connectamericas.com/en/tenders" target="_blank">
+        <div class="pl-icon">🌐</div>
+        <div><div class="pl-name">BID for the Americas Portal</div><div class="pl-sub">Tenders curated for NBMC participants · bidfortheamericas.connectamericas.com</div></div>
+      </a>
+      <a class="portal-link" href="https://www.iadb.org/en/project-search" target="_blank">
+        <div class="pl-icon">🏦</div>
+        <div><div class="pl-name">IDB Project Database</div><div class="pl-sub">All IDB-financed projects · iadb.org/en/project-search</div></div>
+      </a>
+    </div>
+
+    <!-- Tender metadata -->
+    <div class="cl-meta">
+      <div class="cm-card">
+        <div class="cm-label">Tender / project name</div>
+        <input id="cl-tender-name" type="text" placeholder="e.g. Road Rehabilitation Program — Colombia" oninput="updateMeta()">
+      </div>
+      <div class="cm-card">
+        <div class="cm-label">Country</div>
+        <input id="cl-country" type="text" placeholder="e.g. Colombia" oninput="updateMeta()">
+      </div>
+      <div class="cm-card">
+        <div class="cm-label">EOI / Bid deadline</div>
+        <input id="cl-deadline" type="text" placeholder="e.g. 15 August 2026" oninput="updateMeta()">
+      </div>
+      <div class="cm-card">
+        <div class="cm-label">Procurement method</div>
+        <input id="cl-method" type="text" placeholder="e.g. QCBS, ICB, NCB…" oninput="updateMeta()">
+      </div>
+      <div class="cm-card">
+        <div class="cm-label">Estimated contract value</div>
+        <input id="cl-value" type="text" placeholder="e.g. USD 2.5M" oninput="updateMeta()">
+      </div>
+      <div class="cm-card">
+        <div class="cm-label">IDB loan / project number</div>
+        <input id="cl-loan" type="text" placeholder="e.g. BR-L1234" oninput="updateMeta()">
+      </div>
+    </div>
+
+    <!-- Type selector -->
+    <div class="type-selector">
+      <div class="type-btn" id="type-consulting" onclick="selectType('consulting')">
+        <div class="tb-icon">📋</div>
+        <div class="tb-title">Consulting Services</div>
+        <div class="tb-sub">QCBS · QBS · LCS · CQS · SSS</div>
+      </div>
+      <div class="type-btn" id="type-goods" onclick="selectType('goods')">
+        <div class="tb-icon">📦</div>
+        <div class="tb-title">Goods & Equipment</div>
+        <div class="tb-sub">ICB · NCB · Shopping</div>
+      </div>
+      <div class="type-btn" id="type-works" onclick="selectType('works')">
+        <div class="tb-icon">🏗️</div>
+        <div class="tb-title">Works & Civil Infrastructure</div>
+        <div class="tb-sub">ICB · NCB · Pre-qualification</div>
+      </div>
+    </div>
+
+    <!-- Checklist panel -->
+    <div id="checklist-panel-wrap">
+      <div class="empty-state">
+        <div class="es-icon">☝️</div>
+        <p>Select a procurement type above to load the document checklist.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</div><!-- #app -->
+
+<script>
+/* ══════════════════════════════════════
+   MODE SWITCHING
+══════════════════════════════════════ */
+let mode = 'deck';
+function setMode(m) {
+  mode = m;
+  document.getElementById('preview').style.display        = m==='deck' ? 'flex' : 'none';
+  document.getElementById('checklist-page').style.display = m==='checklist' ? 'block' : 'none';
+  document.getElementById('sb-deck-fields').style.display = m==='deck' ? 'block' : 'none';
+  document.getElementById('sb-nav').style.display         = m==='deck' ? 'block' : 'none';
+  document.getElementById('btn-deck').classList.toggle('active', m==='deck');
+  document.getElementById('btn-checklist').classList.toggle('active', m==='checklist');
+}
+function exportCurrent() { window.print(); }
+
+/* ══════════════════════════════════════
+   DECK
+══════════════════════════════════════ */
+const TOTAL = 9;
+const SNAMES = ['Cover','LAC Region','Infrastructure gap','IDB Profile','IDB de-risks entry','Procurement scale','Featured projects','How to participate','Contact'];
+let cur = 0;
+let projs = [
+  {country:'Colombia', sector:'Infrastructure', title:'[Project title]', status:'EOI open', eoi:'Q3 2026', amount:'$45M'},
+  {country:'Peru', sector:'Climate & Energy', title:'[Project title]', status:'RFP upcoming', eoi:'Q4 2026', amount:'$28M'},
+  {country:'Brazil', sector:'Digital Transformation', title:'[Project title]', status:'Pipeline', eoi:'Q1 2027', amount:'$60M'},
+];
+const v = id => { const el=document.getElementById(id); return el?el.value:''; };
+function renderPF() {
+  const c=document.getElementById('proj-fields'); c.innerHTML='';
+  projs.forEach((p,i)=>{
+    const d=document.createElement('div'); d.className='pblock';
+    d.innerHTML=`<div class="pl">Project ${i+1} <span onclick="rmP(${i})">✕</span></div>
+      <input placeholder="Country" value="${p.country}" oninput="projs[${i}].country=this.value;rp()">
+      <input placeholder="Sector" value="${p.sector}" oninput="projs[${i}].sector=this.value;rp()">
+      <input placeholder="Project title" value="${p.title}" oninput="projs[${i}].title=this.value;rp()">
+      <input placeholder="Status" value="${p.status}" oninput="projs[${i}].status=this.value;rp()">
+      <input placeholder="EOI date" value="${p.eoi}" oninput="projs[${i}].eoi=this.value;rp()">
+      <input placeholder="Amount" value="${p.amount}" oninput="projs[${i}].amount=this.value;rp()">`;
+    c.appendChild(d);
+  });
+}
+function addP(){projs.push({country:'[Country]',sector:'[Sector]',title:'[Project title]',status:'[Status]',eoi:'[Q/YYYY]',amount:'$[X]M'});renderPF();rp();}
+function rmP(i){projs.splice(i,1);renderPF();rp();}
+
+function topbar(){return`<div class="sl-topbar"><div class="tl">🌐 IDB</div><div class="tr"><span>${v('f-title')||'BID for the Americas'}</span><span>${v('f-date')||''}</span></div></div><div class="sl-cbar"></div>`;}
+function foot(i){return`<div class="sl-foot"><span class="fb">${v('f-entity')||'IDB'}</span><div class="navb"><button onclick="go(${i-1})" ${i===0?'disabled':''}>← Prev</button><span style="padding:3px 8px;font-size:11px;color:var(--ink-3)">${i+1} / ${TOTAL}</span><button onclick="go(${i+1})" ${i===TOTAL-1?'disabled':''}>Next →</button></div><span class="fp">${v('f-venue')||''}</span></div>`;}
+function shell(eyebrow,title,sub,rHTML,bodyHTML,i){return`<div class="slide" id="sl-${i}">${topbar()}<div class="sl-hero"><div class="sl-hero-text"><div class="sl-eyebrow">${eyebrow}</div><div class="sl-title">${title}</div>${sub?`<div class="sl-sub">${sub}</div>`:''}</div><div class="sl-hero-r">${rHTML}</div></div><div class="sl-body">${bodyHTML}</div>${foot(i)}</div>`;}
+
+function s0(){const secs=v('f-sectors').split(',').map(s=>`<span style="display:inline-block;background:rgba(255,255,255,.15);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:20px;margin:2px 2px 2px 0">${s.trim()}</span>`).join('');return shell('Procurement Roadshow',v('f-title'),v('f-tagline'),`<div style="text-align:center;color:rgba(255,255,255,.5);font-size:11px;font-style:italic">Latin America &amp; the Caribbean<br>26 countries · 660M+ people</div>`,`<div class="g2"><div class="ic"><div class="ic-l">Presenting entity</div><div class="ic-v">${v('f-entity')}</div></div><div class="ic"><div class="ic-l">Date & venue</div><div class="ic-v">${v('f-date')}</div><div class="ic-n">${v('f-venue')}</div></div></div><div class="ic"><div class="ic-l">Audience</div><div class="ic-v" style="font-size:13px">${v('f-audience')}</div></div>`,0);}
+
+function s1(){return shell('01 · The Region','Why Latin America & the Caribbean?','A market of 660 million people across 33 countries — with growing infrastructure needs and decades of sustained economic activity.',`<div class="hr-stat"><div class="s-val">${v('f-lac-gdp')}</div><div class="s-lbl">Combined GDP</div></div><div class="hr-div"></div><div class="hr-stat"><div class="s-val">${v('f-lac-pop')}</div><div class="s-lbl">Population</div></div><div class="hr-div"></div><div class="hr-stat"><div class="s-val">${v('f-lac-growth')}</div><div class="s-lbl">GDP growth 2025</div></div>`,`<div class="fact-strip"><div class="fact-card"><div class="f-val">2nd</div><div class="f-lbl">Largest region for infrastructure PPPs globally</div></div><div class="fact-card"><div class="f-val">$760B</div><div class="f-lbl">Private capital into LAC infrastructure — last 30 years</div></div><div class="fact-card"><div class="f-val">1.5×</div><div class="f-lbl">GDP multiplier per $1 invested in infrastructure (IDB)</div></div></div><div class="ic"><div class="ic-l" style="margin-bottom:6px">Key growth sectors</div><span class="tag tt">Energy transition</span><span class="tag tt">Digital infrastructure</span><span class="tag tt">Transport</span><span class="tag tt">Health systems</span><span class="tag tt">Water & sanitation</span><span class="tag tt">Agriculture</span></div><p style="font-size:11px;color:var(--ink-3);margin-top:10px">Sources: ECLAC 2025 · Allianz GI 2025 · IDB · World Bank</p>`,1);}
+
+function s2(){return shell('01 · The Region','The infrastructure gap is your entry point','LAC needs ~$150B per year in investment to meet SDGs. The gap is funded partly through multilateral financing — creating a steady pipeline of international contracts.',`<div class="hr-stat"><div class="s-val">${v('f-infra-need')}</div><div class="s-lbl">Needed to 2030</div></div><div class="hr-div"></div><div class="hr-stat"><div class="s-val">${v('f-infra-gap')}</div><div class="s-lbl">Annual gap</div></div>`,`<div class="g3"><div class="mc"><div class="mc-l">Transport</div><div class="mc-v" style="font-size:15px">Largest gap</div><div class="mc-n">Roads, ports, rail</div></div><div class="mc mc-c"><div class="mc-l">Energy</div><div class="mc-v" style="font-size:15px">Near-target</div><div class="mc-n">Best-performing sector</div></div><div class="mc mc-nv"><div class="mc-l">Digital</div><div class="mc-v" style="font-size:15px">Fastest growing</div><div class="mc-n">4G/5G, data centres</div></div></div><div class="ic"><div class="ic-l" style="margin-bottom:4px">Closing the gap could increase productivity by 75%</div><div class="ic-n" style="font-size:12px;color:var(--ink-2);line-height:1.6">According to IDB research, if LAC countries close infrastructure gaps with OECD levels, economy-wide productivity growth could reach <strong>75% above the historical average</strong> — effectively doubling per capita income in half the time.</div></div><p style="font-size:11px;color:var(--ink-3);margin-top:10px">Sources: IDB Infrastructure Gap Report · Allianz GI 2025 · World Bank</p>`,2);}
+
+function s3(){return shell('02 · The IDB','Your institutional partner in the region','The IDB is the leading development bank in Latin America and the Caribbean — and your legal gateway to IDB-financed procurement.',`<div class="hr-stat"><div class="s-val">1959</div><div class="s-lbl">Established</div></div><div class="hr-div"></div><div class="hr-stat"><div class="s-val">${v('f-idb-members')}</div><div class="s-lbl">Member countries</div></div><div class="hr-div"></div><div class="hr-stat"><div class="s-val">${v('f-idb-rating')}</div><div class="s-lbl">Credit rating</div></div>`,`<div class="g2" style="margin-bottom:12px"><div class="mc" style="text-align:left;padding:12px 14px"><div class="mc-l">Annual financing & mobilization</div><div class="mc-v">${v('f-idb-fin')}</div><div class="mc-n">Loans, grants, guarantees</div></div><div class="mc mc-nv" style="text-align:left;padding:12px 14px"><div class="mc-l">Member countries</div><div class="mc-v">${v('f-idb-members')}</div><div class="mc-n">Including non-borrowing NBMCs</div></div></div><div class="ic"><div class="ic-l" style="margin-bottom:8px">Three arms of the IDB Group</div><div class="ps" style="margin-bottom:7px"><div class="ps-n" style="background:var(--teal)">1</div><div><div class="ps-t">IDB</div><div class="ps-d">Public sector loans and grants to governments across LAC.</div></div></div><div class="ps" style="margin-bottom:7px"><div class="ps-n" style="background:var(--cobalt)">2</div><div><div class="ps-t">IDB Invest</div><div class="ps-d">Private sector arm — directly finances companies and infrastructure projects.</div></div></div><div class="ps" style="margin-bottom:0"><div class="ps-n" style="background:var(--navy)">3</div><div><div class="ps-t">IDB Lab</div><div class="ps-d">Innovation lab supporting early-stage ventures and disruptive technologies.</div></div></div></div>`,3);}
+
+function s4(){return shell('02 · The IDB','How IDB reduces your risk','IDB-financed contracts come with institutional safeguards that materially reduce the barriers to entry for firms new to the region.',`<div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px"><div style="font-size:32px">🛡</div><div style="color:rgba(255,255,255,.7);font-size:11px;max-width:110px;text-align:center">Sovereign-backed · AAA · Rules-based</div></div>`,`<div class="g2"><div class="ic" style="border-left:3px solid var(--teal)"><div class="ic-l">Sovereign guarantee</div><div class="ic-n" style="font-size:12px;color:var(--ink-2);margin-top:4px">IDB loans are backed by member-country governments. Payment risk is substantially reduced vs. direct commercial contracts.</div></div><div class="ic" style="border-left:3px solid var(--teal)"><div class="ic-l">Transparent procurement rules</div><div class="ic-n" style="font-size:12px;color:var(--ink-2);margin-top:4px">All contracts follow IDB's standardized framework — anti-corruption rules, equal access for all member firms, published evaluation criteria.</div></div><div class="ic" style="border-left:3px solid var(--cobalt)"><div class="ic-l">Currency & milestone payments</div><div class="ic-n" style="font-size:12px;color:var(--ink-2);margin-top:4px">Contracts typically denominated in USD. Disbursements follow milestone-based schedules with IDB oversight.</div></div><div class="ic" style="border-left:3px solid var(--cobalt)"><div class="ic-l">Co-financing access</div><div class="ic-n" style="font-size:12px;color:var(--ink-2);margin-top:4px">Firms on IDB projects may access co-financing from IDB Invest, EU-LAC Global Gateway (€45B by 2027), and partner MDBs.</div></div></div>`,4);}
+
+function s5(){const secs=v('f-sectors').split(',').map(s=>s.trim()).filter(Boolean);return shell('03 · The Opportunity','Procurement at scale',`The IDB finances an average of ${v('f-pipeline')} in project procurement annually — across ${v('f-countries')} countries and ${v('f-contracts')} contracts per year.`,`<div class="hr-stat"><div class="s-val">${v('f-pipeline')}</div><div class="s-lbl">Annual procurement</div></div><div class="hr-div"></div><div class="hr-stat"><div class="s-val">${v('f-contracts')}</div><div class="s-lbl">Contracts / year</div></div>`,`<div class="g3" style="margin-bottom:12px"><div class="mc"><div class="mc-l">Consulting & advisory</div><div class="mc-v" style="font-size:14px">EOI-based</div><div class="mc-n">High demand for NBMCs</div></div><div class="mc mc-c"><div class="mc-l">Goods & equipment</div><div class="mc-v" style="font-size:14px">ICB/NCB bidding</div><div class="mc-n">Open now</div></div><div class="mc mc-nv"><div class="mc-l">Works & infrastructure</div><div class="mc-v" style="font-size:14px">Pre-qualification</div><div class="mc-n">Pipeline</div></div></div><div class="ic"><div class="ic-l" style="margin-bottom:7px">Active sectors</div>${secs.map(s=>`<span class="tag tt">${s}</span>`).join('')}</div>`,5);}
+
+function s6(){const rows=projs.length?projs.map(p=>`<div class="pr"><div><div class="pr-country">${p.country} · ${p.sector}</div><div class="pr-title">${p.title}</div><div class="pr-meta">Status: ${p.status}&nbsp;·&nbsp;EOI: ${p.eoi}</div></div><span class="pr-amt">${p.amount}</span></div>`).join(''):'<p style="font-size:13px;color:var(--ink-3)">No projects added yet — use the sidebar to add featured projects.</p>';const projSum=projs.length?projs.map(p=>`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="color:rgba(255,255,255,.8);font-size:11px;font-weight:600">${p.country}</span><span style="background:rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px">${p.amount}</span></div>`).join(''):'<span style="color:rgba(255,255,255,.4);font-size:11px">No projects added</span>';return shell('03 · The Opportunity','Featured project opportunities','Each project has upcoming procurement activity. Firms are encouraged to submit expressions of interest early.',`<div style="width:100%;padding:2px 0">${projSum}</div>`,rows,6);}
+
+function s7(){return shell('04 · How to Participate','Four steps to win a contract','IDB follows an open, rules-based procurement framework. All member-country firms compete on equal terms.',`<div style="display:flex;flex-direction:column;gap:8px;width:100%">${['Register on UNDB / IDB portal','Submit expression of interest','Respond to RFP / bidding docs','Contract award & execution'].map((s,i)=>`<div style="display:flex;gap:8px;align-items:center"><div style="width:22px;min-width:22px;height:22px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff">${i+1}</div><span style="color:rgba(255,255,255,.8);font-size:11px;font-weight:600">${s}</span></div>`).join('')}</div>`,`<div class="ps"><div class="ps-n">1</div><div><div class="ps-t">Register on UNDB & IDB procurement portal</div><div class="ps-d">All bids are published on the United Nations Development Business (UNDB) platform and the IDB portal. Free to register. Set up email alerts for your sector.</div></div></div><div class="hr"></div><div class="ps"><div class="ps-n">2</div><div><div class="ps-t">Submit expression of interest (EOI)</div><div class="ps-d">EOIs are the first formal step for consulting assignments. They establish your firm's qualifications ahead of a Request for Proposals. Deadline-critical — plan early.</div></div></div><div class="hr"></div><div class="ps"><div class="ps-n">3</div><div><div class="ps-t">Respond to RFP / bidding documents</div><div class="ps-d">Technical and financial proposals evaluated against published criteria. Shortlisted firms from EOI receive a formal invitation to submit.</div></div></div><div class="hr"></div><div class="ps"><div class="ps-n">4</div><div><div class="ps-t">Contract award & execution</div><div class="ps-d">IDB supervises contract management. Milestone-based disbursements. Dispute resolution under IDB's institutional framework.</div></div></div>`,7);}
+
+function s8(){return shell('05 · Next Steps','Ready to get started?','Connect with the BID for the Americas team to receive project alerts, attend business matching events, and access the IDB procurement portal.',`<div style="text-align:center;display:flex;flex-direction:column;gap:6px;align-items:center"><div style="color:rgba(255,255,255,.5);font-size:11px;text-transform:uppercase;letter-spacing:.1em">IDB focal point</div><div style="color:#fff;font-size:14px;font-weight:700">${v('f-cn')}</div><div style="color:rgba(255,255,255,.7);font-size:11px">${v('f-ct')}</div><div style="background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:3px 12px;border-radius:20px;margin-top:4px">${v('f-ce')}</div></div>`,`<div class="g2" style="margin-bottom:14px"><div class="ic"><div class="ic-l">IDB focal point</div><div class="ic-v">${v('f-cn')}</div><div class="ic-n">${v('f-ct')}</div><div class="ic-n">${v('f-ce')}</div></div><div class="ic"><div class="ic-l">Country office</div><div class="ic-n" style="margin-top:4px;font-size:12px">${v('f-co')}</div></div></div><div class="ic"><div class="ic-l" style="margin-bottom:9px">Resources</div><a class="cl" href="https://www.iadb.org/en/who-we-are/topics/trade/trade-initiatives/bid-americas" target="_blank">↗ BID for the Americas — program overview</a><a class="cl" href="https://bidfortheamericas.connectamericas.com/en/tenders" target="_blank">↗ BID for the Americas portal — browse tenders</a><a class="cl" href="https://www.iadb.org/en/project-search" target="_blank">↗ IDB project database — search active loans</a><a class="cl" href="https://www.undp.org/procurement/business-opportunities" target="_blank">↗ UNDB — United Nations bid notices</a></div>`,8);}
+
+function rp(){document.getElementById('preview').innerHTML=[s0(),s1(),s2(),s3(),s4(),s5(),s6(),s7(),s8()].join('');}
+function renderNav(){const c=document.getElementById('sb-nav');c.innerHTML='';SNAMES.forEach((n,i)=>{const b=document.createElement('button');b.textContent=`${i+1}. ${n}`;b.className=i===cur?'active':'';b.onclick=()=>go(i);c.appendChild(b);});}
+function go(i){if(i<0||i>=TOTAL)return;cur=i;renderNav();const el=document.getElementById(`sl-${i}`);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
+function sync(){rp();}
+
+/* ══════════════════════════════════════
+   CHECKLIST DATA
+══════════════════════════════════════ */
+const CHECKLISTS = {
+  consulting: {
+    label: 'Consulting Services',
+    method: 'QCBS · QBS · LCS · CQS · SSS',
+    color: 'var(--teal)',
+    sections: [
+      {
+        title: 'Expression of Interest (EOI) — all consulting methods',
+        dot: 'var(--teal)',
+        items: [
+          {name:'Letter of Expression of Interest',desc:'Signed letter on firm letterhead expressing interest in the assignment. Address to the client / executing agency.',req:'required'},
+          {name:'Firm profile / capability statement',desc:'Brief overview of the firm: year founded, size, ownership, countries of operation, key practice areas.',req:'required'},
+          {name:'Relevant project references (minimum 3)',desc:'Minimum 3 completed assignments similar in nature, size, and complexity. Include client name, contract value, scope, and dates.',req:'required'},
+          {name:'CVs of proposed key experts',desc:'CVs for proposed team leader and key experts. Highlight relevant experience and qualifications matching the TOR.',req:'required'},
+          {name:'Firm registration / legal existence proof',desc:'Certificate of incorporation, business license, or equivalent document valid in the country of registration.',req:'required'},
+          {name:'Financial statements (last 2–3 years)',desc:'Audited financials or tax filings demonstrating financial capacity proportional to the contract size.',req:'conditional'},
+          {name:'Association / JV agreement (if applicable)',desc:'If submitting as a joint venture or consortium, include a signed JV agreement or letter of intent.',req:'conditional'},
+          {name:'Conflict of interest declaration',desc:'Signed declaration that the firm is not in a conflicting position as defined by IDB Procurement Framework Section 3.17.',req:'required'},
+        ]
+      },
+      {
+        title: 'Technical Proposal (RFP stage — QCBS/QBS)',
+        dot: 'var(--cobalt)',
+        items: [
+          {name:'Technical approach and methodology',desc:'Detailed description of how the firm plans to execute the assignment. Must directly respond to the Terms of Reference (TOR).',req:'required'},
+          {name:'Work plan and schedule',desc:'Activity schedule showing tasks, milestones, and proposed timeline. Usually in Gantt chart format.',req:'required'},
+          {name:'Team composition and staffing',desc:'Organisational chart and assignment of experts to tasks. Show time inputs (person-months) per expert.',req:'required'},
+          {name:'Detailed CVs of all proposed experts',desc:'Full CVs signed by the expert. Must meet minimum qualifications in TOR. Unsigned CVs may be disqualified.',req:'required'},
+          {name:'Expert availability confirmation',desc:'Signed statement of availability for the proposed period from each key expert.',req:'required'},
+          {name:'Comments and suggestions on TOR (optional)',desc:'Firms may include suggested improvements to the TOR. Treated separately and does not affect scoring.',req:'optional'},
+          {name:'Data and facilities available from client (optional)',desc:'List any data, counterpart staff, or facilities expected from the client.',req:'optional'},
+        ]
+      },
+      {
+        title: 'Financial Proposal (QCBS/LCS)',
+        dot: 'var(--navy)',
+        items: [
+          {name:'Financial Proposal Form (FIN-1)',desc:'IDB standard form. Must be submitted in a separate sealed envelope from the technical proposal.',req:'required'},
+          {name:'Remuneration rates per expert',desc:'Breakdown of fees by expert, category, and time input. Use IDB standard form FIN-2.',req:'required'},
+          {name:'Reimbursable expenses breakdown',desc:'Estimated costs for travel, DSA, translation, printing, and other direct costs. Use IDB standard form FIN-3.',req:'required'},
+          {name:'Currency of proposal',desc:'State the currency for payment. Typically USD or borrower-country currency. Must match RFP instructions.',req:'required'},
+        ]
+      },
+      {
+        title: 'Administrative & Eligibility Documents',
+        dot: 'var(--teal-dk)',
+        items: [
+          {name:'Power of attorney / authorization letter',desc:'Authorizes the signatory to commit the firm. Required if the signer is not the legal representative.',req:'conditional'},
+          {name:'Non-debarment declaration',desc:'Signed declaration confirming the firm is not debarred by IDB, World Bank, or any MDB.',req:'required'},
+          {name:'Tax compliance certificate',desc:'Proof of good standing with tax authorities in the firm\'s home country. Requirements vary by RFP.',req:'conditional'},
+          {name:'Insurance certificate',desc:'Professional indemnity (errors & omissions) insurance for the contract duration. Minimum coverage in RFP.',req:'conditional'},
+        ]
+      }
+    ]
+  },
+  goods: {
+    label: 'Goods & Equipment',
+    method: 'ICB · NCB · Shopping',
+    color: 'var(--cobalt)',
+    sections: [
+      {
+        title: 'Bid Submission — all goods methods',
+        dot: 'var(--cobalt)',
+        items: [
+          {name:'Completed Bid Form',desc:'IDB standard bid form, fully completed and signed by an authorized representative of the bidder.',req:'required'},
+          {name:'Price schedule / bill of quantities',desc:'Itemized price list for all goods, spare parts, and related services. Separate columns for unit price, total price, and applicable taxes.',req:'required'},
+          {name:'Bid security / bid bond',desc:'Bank guarantee or cashier\'s cheque for the amount specified in the bidding documents (typically 1–3% of bid price). Valid for bid validity period + 30 days.',req:'required'},
+          {name:'Technical specifications compliance',desc:'Point-by-point response to technical specifications. Indicate "comply" or "deviate" for each item. Deviations must be explained.',req:'required'},
+          {name:'Manufacturer\'s authorization letter',desc:'Required when the bidder is not the manufacturer. Confirms the manufacturer\'s support for after-sales service and spare parts.',req:'conditional'},
+          {name:'Product literature / data sheets',desc:'Brochures, datasheets, or technical manuals for offered goods. Must demonstrate compliance with specifications.',req:'required'},
+          {name:'Country of origin declaration',desc:'Certificate or declaration of origin for each major item. Required for customs and eligibility verification.',req:'required'},
+        ]
+      },
+      {
+        title: 'Bidder Qualification',
+        dot: 'var(--teal)',
+        items: [
+          {name:'Firm registration / legal existence proof',desc:'Certificate of incorporation or equivalent, valid and in good standing.',req:'required'},
+          {name:'Audited financial statements (3 years)',desc:'Demonstrate financial capacity. Minimum average annual turnover typically specified in bidding documents.',req:'required'},
+          {name:'Completed similar contracts list',desc:'List of contracts of similar nature and value completed in the last 3–5 years. Include client references.',req:'required'},
+          {name:'Non-debarment declaration',desc:'Signed declaration that the firm is not debarred by IDB, World Bank, or any MDB.',req:'required'},
+          {name:'Litigation history declaration',desc:'Disclosure of pending or past litigation or arbitration related to contracts in the last 5 years.',req:'required'},
+          {name:'Joint venture agreement (if applicable)',desc:'Signed JV agreement clearly defining roles, responsibilities, and lead firm. All JV members submit qualification docs.',req:'conditional'},
+        ]
+      },
+      {
+        title: 'Delivery, Warranty & After-Sales',
+        dot: 'var(--navy)',
+        items: [
+          {name:'Delivery schedule',desc:'Confirmed delivery timeline from contract signing to delivery at destination. Include manufacturing lead time if applicable.',req:'required'},
+          {name:'Warranty terms and conditions',desc:'Minimum warranty period as specified. Describe scope of warranty, response times, and support mechanism.',req:'required'},
+          {name:'After-sales service and spare parts plan',desc:'Description of service network in the borrower country. Spare parts availability for minimum 5–10 years post-delivery.',req:'conditional'},
+          {name:'Incoterms and packing specifications',desc:'State applicable Incoterms (typically CIP or DDP). Describe packing, marking, and documentation standards.',req:'required'},
+        ]
+      }
+    ]
+  },
+  works: {
+    label: 'Works & Civil Infrastructure',
+    method: 'ICB · NCB · Pre-qualification (PQ)',
+    color: 'var(--navy)',
+    sections: [
+      {
+        title: 'Pre-qualification (PQ) — if required',
+        dot: 'var(--teal)',
+        items: [
+          {name:'Pre-qualification application form',desc:'IDB standard PQ form. Must be submitted before receiving bidding documents. Not a substitute for the actual bid.',req:'required'},
+          {name:'Experience in similar works (10 years)',desc:'List of completed civil works contracts of similar nature, complexity, and value in the last 10 years. Include contract amounts, dates, and client references.',req:'required'},
+          {name:'Key staff qualifications (site manager, engineers)',desc:'CVs for site manager and key technical staff. Minimum qualifications defined in the PQ document.',req:'required'},
+          {name:'Equipment availability declaration',desc:'List of owned or committed equipment available for the contract. Owned equipment preferred; leased accepted with commitment letters.',req:'required'},
+          {name:'Financial capacity evidence',desc:'Audited financials for last 3 years. Minimum average annual construction turnover typically specified (often 2–3× contract value).',req:'required'},
+          {name:'Non-debarment declaration',desc:'Signed declaration of no debarment by IDB or other MDB.',req:'required'},
+        ]
+      },
+      {
+        title: 'Bid Submission (post-PQ or open bidding)',
+        dot: 'var(--cobalt)',
+        items: [
+          {name:'Completed Bid Form',desc:'IDB standard bid form, signed by authorized representative.',req:'required'},
+          {name:'Bill of quantities (BOQ) with unit rates',desc:'Fully priced BOQ for all work items. Unit rates must be realistic and consistent with the method statement.',req:'required'},
+          {name:'Bid security / bid bond',desc:'Bank guarantee for the percentage specified in bidding documents (typically 1–3% of bid price). Minimum validity = bid validity + 30 days.',req:'required'},
+          {name:'Construction method statement',desc:'Narrative description of how the works will be executed. Address major construction activities, temporary works, and sequencing.',req:'required'},
+          {name:'Construction programme / schedule',desc:'Detailed work programme (e.g. bar chart or CPM) from contract commencement to completion.',req:'required'},
+          {name:'Site organisation chart',desc:'Proposed site management structure with key staff assignments.',req:'required'},
+          {name:'Subcontractors list (if applicable)',desc:'List of intended subcontractors for specialized work items. Must be approved by client/IDB before engagement.',req:'conditional'},
+        ]
+      },
+      {
+        title: 'Environmental & Social Safeguards',
+        dot: 'var(--teal-dk)',
+        items: [
+          {name:'Environmental & Social Management Plan (ESMP)',desc:'Contractor ESMP showing how IDB environmental and social standards (ESS) will be met during construction.',req:'required'},
+          {name:'OHS / Health & Safety plan',desc:'Occupational health and safety plan. Must align with IDB\'s Environmental and Social Policy Framework.',req:'required'},
+          {name:'Labor management procedures',desc:'Plan for managing direct workers, including grievance mechanism, working hours, and non-discrimination.',req:'required'},
+          {name:'Waste management plan',desc:'Plan for construction waste, hazardous materials, and site restoration.',req:'conditional'},
+        ]
+      },
+      {
+        title: 'Financial & Legal',
+        dot: 'var(--navy)',
+        items: [
+          {name:'Firm registration & legal existence',desc:'Certificate of incorporation or equivalent.',req:'required'},
+          {name:'Audited financial statements (3 years)',desc:'Demonstrate liquidity and financial capacity commensurate with contract size.',req:'required'},
+          {name:'Line of credit or cash flow capacity',desc:'Bank letter confirming available credit line sufficient to mobilize. Amount specified in bidding documents.',req:'conditional'},
+          {name:'Non-debarment & integrity declaration',desc:'Signed declaration of no debarment, no fraud, and no conflict of interest.',req:'required'},
+          {name:'Litigation history',desc:'Disclosure of any pending or past arbitration/litigation related to contracts in the last 5 years.',req:'required'},
+          {name:'Insurance certificates',desc:'Works all-risk, third-party liability, and worker\'s compensation insurance. Minimums specified in conditions of contract.',req:'required'},
+        ]
+      }
+    ]
+  }
+};
+
+let selectedType = null;
+let checkStates = {};
+
+function selectType(type) {
+  selectedType = type;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('type-'+type).classList.add('selected');
+  renderChecklist();
+}
+
+function updateMeta() { /* meta fields update live — no re-render needed */ }
+
+function renderChecklist() {
+  const wrap = document.getElementById('checklist-panel-wrap');
+  if (!selectedType) { wrap.innerHTML = '<div class="empty-state"><div class="es-icon">☝️</div><p>Select a procurement type above.</p></div>'; return; }
+  const data = CHECKLISTS[selectedType];
+  if (!checkStates[selectedType]) checkStates[selectedType] = {};
+
+  let sectionsHTML = data.sections.map((sec, si) => {
+    const items = sec.items.map((item, ii) => {
+      const key = `${si}-${ii}`;
+      const checked = checkStates[selectedType][key] || false;
+      const reqClass = item.req === 'required' ? 'ci-req' : item.req === 'conditional' ? 'ci-cond' : 'ci-opt';
+      const reqLabel = item.req === 'required' ? 'Required' : item.req === 'conditional' ? 'Conditional' : 'Optional';
+      return `<div class="cl-item">
+        <input type="checkbox" ${checked?'checked':''} onchange="toggleCheck('${selectedType}','${key}',this.checked)">
+        <div class="cl-item-body">
+          <div class="ci-name">${item.name}</div>
+          <div class="ci-desc">${item.desc}</div>
+        </div>
+        <span class="ci-required ${reqClass}">${reqLabel}</span>
+      </div>`;
+    }).join('');
+    return `<div class="cl-section">
+      <div class="cl-section-head" onclick="toggleSection(this)">
+        <div class="csh-dot" style="background:${sec.dot}"></div>
+        <div class="csh-title">${sec.title}</div>
+        <div class="csh-count">${sec.items.length} documents</div>
+        <div class="csh-toggle">▾</div>
+      </div>
+      <div class="cl-items">${items}</div>
+    </div>`;
+  }).join('');
+
+  const total = data.sections.reduce((a,s)=>a+s.items.length,0);
+  const checked = Object.values(checkStates[selectedType]||{}).filter(Boolean).length;
+  const pct = total ? Math.round(checked/total*100) : 0;
+
+  wrap.innerHTML = `<div class="checklist-panel">
+    <div class="cp-head">
+      <div>
+        <h2>${data.label} — Document Checklist</h2>
+        <div class="cp-method">${data.method}</div>
+      </div>
+      <div class="cp-actions">
+        <button onclick="checkAll()">Check all</button>
+        <button onclick="clearAll()">Clear all</button>
+        <button onclick="window.print()">Print / PDF</button>
+      </div>
+    </div>
+    <div class="cp-body">${sectionsHTML}</div>
+    <div class="progress-wrap">
+      <div class="prog-bar-bg"><div class="prog-bar-fill" id="prog-fill" style="width:${pct}%"></div></div>
+      <div class="prog-label" id="prog-label">${checked} / ${total} documents addressed (${pct}%)</div>
+    </div>
+  </div>`;
+}
+
+function toggleCheck(type, key, val) {
+  if (!checkStates[type]) checkStates[type] = {};
+  checkStates[type][key] = val;
+  updateProgress();
+}
+
+function updateProgress() {
+  const data = CHECKLISTS[selectedType];
+  const total = data.sections.reduce((a,s)=>a+s.items.length,0);
+  const checked = Object.values(checkStates[selectedType]||{}).filter(Boolean).length;
+  const pct = total ? Math.round(checked/total*100) : 0;
+  const fill = document.getElementById('prog-fill');
+  const lbl  = document.getElementById('prog-label');
+  if (fill) fill.style.width = pct+'%';
+  if (lbl)  lbl.textContent = `${checked} / ${total} documents addressed (${pct}%)`;
+}
+
+function checkAll() {
+  const data = CHECKLISTS[selectedType];
+  if (!checkStates[selectedType]) checkStates[selectedType] = {};
+  data.sections.forEach((sec,si) => sec.items.forEach((_,ii) => { checkStates[selectedType][`${si}-${ii}`]=true; }));
+  renderChecklist();
+}
+function clearAll() {
+  checkStates[selectedType] = {};
+  renderChecklist();
+}
+
+function toggleSection(head) {
+  const items = head.nextElementSibling;
+  const tog = head.querySelector('.csh-toggle');
+  items.classList.toggle('collapsed');
+  tog.textContent = items.classList.contains('collapsed') ? '▸' : '▾';
+}
+
+/* ══ INIT ══ */
+renderPF(); renderNav(); rp();
+</script>
+</body>
+</html>
